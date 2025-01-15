@@ -13,11 +13,11 @@ Pon el repositorio en la respuesta, con el Readme.
 
 Los scripts están subidos al repositorio:
 
-**CameraControler**: controla la cámara que utilizará el jugador.
+**CameraControler.cs**: controla la cámara que utilizará el jugador.
 
-**PlayerControler**: control del jugador(bolita azul claro), se mueve con WASD y salta con ESPACIO.
+**PlayerControler.cs**: control del jugador(bolita azul claro), se mueve con WASD y salta con ESPACIO.
 
-**Rotator**: rota los objetivos que dan puntos(los cuadrados amarillos rotan en ángulos de 45º.
+**Rotator.cs**: rota los objetivos que dan puntos(los cuadrados amarillos rotan en ángulos de 45º.
 
 ---------------------------------------------------------------
 
