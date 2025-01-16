@@ -1,7 +1,8 @@
 # Tarea-Unity---Personalizaci-n-del-tablero
-personaliza el tablero de juego con más obstáculos
-prueba el recorrido con la bola
-plantea varios niveles
+**Enunciado:**
+
+personaliza el tablero de juego con más obstáculos prueba el recorrido con la bola plantea varios niveles
+
 Explica las personalizaciones y las interacciones en un Readme
 
 Añade varios gif al Readme con diferentes fases del diseño del tablero
