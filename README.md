@@ -36,6 +36,54 @@ Imagen de la vista del jugador:
 
 ---- **Aqui meter métodos con explicación**
 
+* **Método que utilizamos para controlar la cámara del jugador:**
+
+```bash
+public class CameraControler : MonoBehaviour
+{
+    // referencia al objeto jugador
+    public GameObject player;
+    // distancia entre la camara y el juegador
+    private Vector3 offset;
+    void Start()   // Método que llamamos cuando se inicia la aplicación.
+    {
+
+        // Calcula la posicion offset entre la camara y el jugador
+        offset = transform.position - player.transform.position; 
+    }
+
+       void LateUpdate() // Último método que llamamos frame a frame.
+    {
+        // Para mantener la posición de la camara con respecto al jugador
+        transform.position = player.transform.position + offset; 
+    }
+}
+```
+
+* **Método para controlar el movimiento del jugador:**
+```bash
+    void OnMove (InputValue movementValue) //este método se llama cuando se detecta un input de movimiento.
+    {
+       // Convierte el valor del input en Vector2 para el movimiento.
+        Vector2 movementVector = movementValue.Get<Vector2>();
+        //Guarda los valores de X e Y del componente de movimiento.
+        movementX = movementVector.x; 
+        movementY = movementVector.y; 
+        
+    }
+```
+
+* **Método que permite al jugador saltar:**
+```bash
+    void OnFire(){
+        // cuando saltamos nos da un mensajito por consola
+        Debug.Log("OnFire");
+        Debug.Log("Clicada la bolita SALTA");
+
+        // la fuerza vertical aplicada a la bolita
+        rb.AddForce(Vector3.up * 5.0f, ForceMode.Impulse); 
+    }
+```  
 
 * **Método que utilizamos cuando el JUGADOR toca las pelotas:** 
 ```bash
@@ -70,29 +118,6 @@ public class Rotator : MonoBehaviour
 }
 ```
 
-* **Método que utilizamos para controlar la cámara:**
-
-```bash
-public class CameraControler : MonoBehaviour
-{
-    // referencia al objeto jugador
-    public GameObject player;
-    // distancia entre la camara y el juegador
-    private Vector3 offset;
-    void Start()   // Método que llamamos cuando se inicia la aplicación.
-    {
-
-        // Calcula la posicion offset entre la camara y el jugador
-        offset = transform.position - player.transform.position; 
-    }
-
-       void LateUpdate() // Último método que llamamos frame a frame.
-    {
-        // Para mantener la posición de la camara con respecto al jugador
-        transform.position = player.transform.position + offset; 
-    }
-}
-```
 
 En la plataforma de la izquierda tenemos varias pelotas negras con cuerpo fisico rigidbody y con una masa muy reducida para que podamos chocar con ellas y patearlas a gusto.
 
