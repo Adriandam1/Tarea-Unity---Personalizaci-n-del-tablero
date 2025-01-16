@@ -86,7 +86,7 @@ public class CameraControler : MonoBehaviour
     }
 ```  
 
-* **Método que utilizamos cuando el JUGADOR toca las pelotas:** 
+* **Método que utilizamos cuando el JUGADOR toca los objetivos(puntos):** 
 ```bash
        void SetCountText() 
    {
@@ -105,7 +105,7 @@ public class CameraControler : MonoBehaviour
        }
    }
 ```
-En resumen, cuando el objeto del jugador su radio de colider se posicione, en la misma posición(adyacente) que otro objeto que tenga el tag "Pickup", desactivamos dicho objeto Pickup y aumentamos el valor de la puntuacion llamando al metodo de la puntuación.
+En resumen, cuando el objeto del jugador su radio de colider se posicione, en la misma posición(adyacente) que otro objeto que tenga el tag "Pickup", desactivamos dicho objeto Pickup y aumentamos el valor de la puntuacion llamando al metodo de la puntuación. La variable count esta iniciada en "on start" en 0.
 
 * **Método utilizado para que los puntos(cubitos amarillos) roten sobre si mismos**
 ```bash
