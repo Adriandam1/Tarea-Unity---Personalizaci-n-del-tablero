@@ -34,24 +34,65 @@ El jugador (bolita azul claro) puede moverse y en contacto con los cubitos desap
 Imagen de la vista del jugador:
 ![unity2](https://github.com/user-attachments/assets/e5dac2fd-22bb-47c6-ac97-63fc71a1767e)
 
+---- **Aqui meter métodos con explicación**
 
-**Método que utilizamos cuando el jugador toca las pelotas:** 
+
+* **Método que utilizamos cuando el JUGADOR toca las pelotas:** 
 ```bash
-   void OnTriggerEnter (Collider other) 
+       void SetCountText() 
+   {
+       countText.text =  "Puntación: " + count.ToString();
+   }
+
+   void OnTriggerEnter (Collider other) // trigger cuando comparta posicion con otro objeto
    {
         // cuando la bolita toque el objetivo pickup lo hacemos desaparecer
-       if (other.gameObject.CompareTag("Pickup")) 
+       if (other.gameObject.CompareTag("Pickup")) // condicion el otro objeto tenga el tag "Pickup"
        {
-           other.gameObject.SetActive(false);
+           other.gameObject.SetActive(false);   // desactiva el otro objeto
             // aumentamos el score en 1
            count = count + 1;
-           SetCountText();
+           SetCountText();   // llamamos a SetCountText
        }
    }
 ```
+En resumen, cuando el objeto del jugador su radio de colider se posicione, en la misma posición(adyacente) que otro objeto que tenga el tag "Pickup", desactivamos dicho objeto Pickup y aumentamos el valor de la puntuacion llamando al metodo de la puntuación.
 
----- **Aqui meter métodos con explicación**
+* **Método utilizado para que los puntos(cubitos amarillos) roten sobre si mismos**
+```bash
+public class Rotator : MonoBehaviour
+{
 
+    void Update()
+    {
+        transform.Rotate (new Vector3 (15, 30, 45) * Time.deltaTime); 
+    }
+}
+```
+
+* **Método que utilizamos para controlar la cámara:**
+
+```bash
+public class CameraControler : MonoBehaviour
+{
+    // referencia al objeto jugador
+    public GameObject player;
+    // distancia entre la camara y el juegador
+    private Vector3 offset;
+    void Start()   // Método que llamamos cuando se inicia la aplicación.
+    {
+
+        // Calcula la posicion offset entre la camara y el jugador
+        offset = transform.position - player.transform.position; 
+    }
+
+       void LateUpdate() // Último método que llamamos frame a frame.
+    {
+        // Para mantener la posición de la camara con respecto al jugador
+        transform.position = player.transform.position + offset; 
+    }
+}
+```
 
 En la plataforma de la izquierda tenemos varias pelotas negras con cuerpo fisico rigidbody y con una masa muy reducida para que podamos chocar con ellas y patearlas a gusto.
 
