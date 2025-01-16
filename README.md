@@ -50,6 +50,8 @@ Imagen de la vista del jugador:
    }
 ```
 
+---- **Aqui meter métodos con explicación**
+
 
 En la plataforma de la izquierda tenemos varias pelotas negras con cuerpo fisico rigidbody y con una masa muy reducida para que podamos chocar con ellas y patearlas a gusto.
 
