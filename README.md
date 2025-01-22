@@ -131,9 +131,9 @@ Tambien tenemos un arbolito pelado y con una abertura estrategicamente pequeña,
 ![unity4](https://github.com/user-attachments/assets/2e4dc32d-64e0-47c7-9fbe-db034d423305)
 
 
-**Scripts de las camaras actualizados**
+### **Scripts de las camaras actualizados**
 
-Estos scripts funcionan con un scrip **CameraSwicther** que nos permite cambiar de una camara a otra.
+Los scripts de cámara(uno por cada cámara) funcionan con un scrip **CameraSwicther.cs** que nos permite cambiar de una camara a otra.
 
 Creamos un array cameras, en el que introducimos el gameObject de **CameraManager**, ese array es leido por nuestro script **CameraSwitcher.cs**
 
@@ -163,7 +163,7 @@ public class CameraSwitcher : MonoBehaviour{
         {cameras[i].gameObject.SetActive(i == index);}
     }
 ```
-También tenemos una función TextoCamara, que nos pondra un texto indicando la cámara que estamos empleando.
+También tenemos una función TextoCamara, que nos pondrá un texto indicando la cámara que estamos empleando.
 
 ```bash
     void TextoCamara(int index){
@@ -172,6 +172,8 @@ También tenemos una función TextoCamara, que nos pondra un texto indicando la 
         if (index == 2){CamaraTexto.GetComponent<TextMeshProUGUI>().text = "Cámara Cenital";}
         if (index == 3){CamaraTexto.GetComponent<TextMeshProUGUI>().text = "Cámara Autonoma";}}
 ```
+
+Las c
 
 
 
