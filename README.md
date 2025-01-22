@@ -133,61 +133,44 @@ Tambien tenemos un arbolito pelado y con una abertura estrategicamente pequeña,
 
 **Scripts de las camaras actualizados**
 
-Estos scripts funcionan con un scrip CameraSwicther que nos permite cambiar de una camara a otra.
+Estos scripts funcionan con un scrip **CameraSwicther** que nos permite cambiar de una camara a otra.
 
-Creamos un array cameras, en el que introducimos el gameObject de **CameraManager**, ese array es leido por nuestro script **CameraSwitcher**
+Creamos un array cameras, en el que introducimos el gameObject de **CameraManager**, ese array es leido por nuestro script **CameraSwitcher.cs**
+
 ![Screenshot_20250122_123004](https://github.com/user-attachments/assets/159a273b-862b-4cd5-842c-74585523c619)  ![Screenshot_20250122_122951](https://github.com/user-attachments/assets/c9946656-475b-4ba6-a474-931d7a6a4352)
 
+Cuando el usuario pulse la tecla **C** sumaremos 1 al integer que usamos de indice, y cambiará a la siguiente cámara.
 
 ```bash
-public class CameraSwitcher : MonoBehaviour
-{
+public class CameraSwitcher : MonoBehaviour{
     public Camera[] cameras; // Array para todas las cámaras
     private int currentCameraIndex = 0; // Índice de la cámara actual
     public GameObject CamaraTexto; //objeto CamaraTexto
 
-    void Start()
-    {
-        // Asegúrate de que solo una cámara esté activa al inicio
+    void Start(){
         ActivateCamera(currentCameraIndex);
     }
-    void Update()
-    {
-        // Cambiar de cámara al presionar el botón (por defecto 'C')
-        if (Input.GetKeyDown(KeyCode.C))
-        {
+    void Update(){
+        if (Input.GetKeyDown(KeyCode.C)){
             currentCameraIndex++;
             if (currentCameraIndex >= cameras.Length)
                 currentCameraIndex = 0;
-
             ActivateCamera(currentCameraIndex);
-            TextoCamara(currentCameraIndex);
-        }
+            TextoCamara(currentCameraIndex);}
     }
-    void ActivateCamera(int index)
-    {
+    void ActivateCamera(int index){
         for (int i = 0; i < cameras.Length; i++)
-        {
-            cameras[i].gameObject.SetActive(i == index);
-        }
+        {cameras[i].gameObject.SetActive(i == index);}
     }
-    // metodo para cambiar el texto de la camara
-    // coge el componente de TextoCamara
+```
+También tenemos una función TextoCamara, que nos pondra un texto indicando la cámara que estamos empleando.
+
+```bash
     void TextoCamara(int index){
-        if (index == 0){
-            CamaraTexto.GetComponent<TextMeshProUGUI>().text = "Cámara por defecto";
-        }
-        if (index == 1){
-            CamaraTexto.GetComponent<TextMeshProUGUI>().text = "Cámara Primera Persona";
-        }
-        if (index == 2){
-            CamaraTexto.GetComponent<TextMeshProUGUI>().text = "Cámara Cenital";
-        }
-        if (index == 3){
-            CamaraTexto.GetComponent<TextMeshProUGUI>().text = "Cámara Autonoma";
-        }
-    }
-}
+        if (index == 0){CamaraTexto.GetComponent<TextMeshProUGUI>().text = "Cámara por defecto";}
+        if (index == 1){CamaraTexto.GetComponent<TextMeshProUGUI>().text = "Cámara Primera Persona";}
+        if (index == 2){CamaraTexto.GetComponent<TextMeshProUGUI>().text = "Cámara Cenital";}
+        if (index == 3){CamaraTexto.GetComponent<TextMeshProUGUI>().text = "Cámara Autonoma";}}
 ```
 
 
