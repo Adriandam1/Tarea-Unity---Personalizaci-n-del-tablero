@@ -133,9 +133,61 @@ Tambien tenemos un arbolito pelado y con una abertura estrategicamente pequeña,
 
 **Scripts de las camaras actualizados**
 
-Estos scripts funcionan con un scrip CameraSwicther que nos permite cambiar de una camara a otra
-```bash
+Estos scripts funcionan con un scrip CameraSwicther que nos permite cambiar de una camara a otra.
 
+Creamos un array cameras, en el que introducimos el gameObject de **CameraManager**, ese array es leido por nuestro script **CameraSwitcher**
+![Screenshot_20250122_123004](https://github.com/user-attachments/assets/159a273b-862b-4cd5-842c-74585523c619)  ![Screenshot_20250122_122951](https://github.com/user-attachments/assets/c9946656-475b-4ba6-a474-931d7a6a4352)
+
+
+```bash
+public class CameraSwitcher : MonoBehaviour
+{
+    public Camera[] cameras; // Array para todas las cámaras
+    private int currentCameraIndex = 0; // Índice de la cámara actual
+    public GameObject CamaraTexto; //objeto CamaraTexto
+
+    void Start()
+    {
+        // Asegúrate de que solo una cámara esté activa al inicio
+        ActivateCamera(currentCameraIndex);
+    }
+    void Update()
+    {
+        // Cambiar de cámara al presionar el botón (por defecto 'C')
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            currentCameraIndex++;
+            if (currentCameraIndex >= cameras.Length)
+                currentCameraIndex = 0;
+
+            ActivateCamera(currentCameraIndex);
+            TextoCamara(currentCameraIndex);
+        }
+    }
+    void ActivateCamera(int index)
+    {
+        for (int i = 0; i < cameras.Length; i++)
+        {
+            cameras[i].gameObject.SetActive(i == index);
+        }
+    }
+    // metodo para cambiar el texto de la camara
+    // coge el componente de TextoCamara
+    void TextoCamara(int index){
+        if (index == 0){
+            CamaraTexto.GetComponent<TextMeshProUGUI>().text = "Cámara por defecto";
+        }
+        if (index == 1){
+            CamaraTexto.GetComponent<TextMeshProUGUI>().text = "Cámara Primera Persona";
+        }
+        if (index == 2){
+            CamaraTexto.GetComponent<TextMeshProUGUI>().text = "Cámara Cenital";
+        }
+        if (index == 3){
+            CamaraTexto.GetComponent<TextMeshProUGUI>().text = "Cámara Autonoma";
+        }
+    }
+}
 ```
 
 
