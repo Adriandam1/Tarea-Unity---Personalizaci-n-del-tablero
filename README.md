@@ -16,7 +16,7 @@ Los scripts están subidos al repositorio:
 
 **CameraControler.cs**: controla la cámara que utilizará el jugador.
 
-**PlayerControler.cs**: control del jugador(bolita azul claro), se mueve con WASD y salta con ESPACIO. Sistema de puntación y texto para visualizarla.
+**PlayerControler.cs**: control del jugador(bolita azul claro), se mueve el estilo WASD con las flechas del teclado y salta con ESPACIO. Sistema de puntación y texto para visualizarla.
 
 **Rotator.cs**: rota los objetivos que dan puntos(los cuadrados amarillos rotan en ángulos de 45º.)
 
@@ -131,9 +131,12 @@ Tambien tenemos un arbolito pelado y con una abertura estrategicamente pequeña,
 ![unity4](https://github.com/user-attachments/assets/2e4dc32d-64e0-47c7-9fbe-db034d423305)
 
 
+**Scripts de las camaras actualizados**
 
+Estos scripts funcionan con un scrip CameraSwicther que nos permite cambiar de una camara a otra
+```bash
 
-
+```
 
 
 
