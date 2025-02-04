@@ -173,7 +173,28 @@ También tenemos una función TextoCamara, que nos pondrá un texto indicando la
         if (index == 3){CamaraTexto.GetComponent<TextMeshProUGUI>().text = "Cámara Autonoma";}}
 ```
 
-Las c
+## Coleccionables (Pickups)  
+En el playercontroler.cs crearemos una funcion **OnTriggerEnter (Collider other)**  que será la encargada de los objetos coleccionables que utilizaremos para ganar puntos y la partida.  
+Cuando el collider del objeto Player coinciden sus coordenadas con la de otro objeto, comprueba si dicho objeto tiene el tag "*Pickup*", para ello lo asignamos en el unity y nos aseguramos de que tiene un collider:  
+![objeto_Pickup](https://github.com/user-attachments/assets/b7acca9a-3c75-472a-9953-85777537f856)
+
+
+
+```bash
+   void OnTriggerEnter (Collider other) 
+   {
+        // cuando la bolita toque el objetivo pickup lo hacemos desaparecer
+       if (other.gameObject.CompareTag("Pickup")) 
+       {
+           other.gameObject.SetActive(false);
+            // aumentamos el score en 1
+           count = count + 1;
+           SetCountText();
+       }
+```
+## Enemigo (AI Navigation)
+
+## Aceleradores y Boosters
 
 
 
