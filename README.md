@@ -39,7 +39,7 @@ Imagen de la vista del jugador:
 
 * **Método que utilizamos para controlar la cámara del jugador:**
 
-  ## Control del jugador
+## 1) Control del jugador
   Lógicamente necesitamos poder movernos y lo hacemos en el scrip *PlayerControler.cs*
 
 * **Método para controlar el movimiento del jugador:**
@@ -65,9 +65,9 @@ Imagen de la vista del jugador:
         // la fuerza vertical aplicada a la bolita
         rb.AddForce(Vector3.up * 5.0f, ForceMode.Impulse); 
     }
-```  
+```
 
-  ## Cámaras
+  ## 2) Cámaras
 
   ### **Scripts de las camaras actualizados**
 
@@ -110,8 +110,9 @@ También tenemos una función TextoCamara, que nos pondrá un texto indicando la
         if (index == 2){CamaraTexto.GetComponent<TextMeshProUGUI>().text = "Cámara Cenital";}
         if (index == 3){CamaraTexto.GetComponent<TextMeshProUGUI>().text = "Cámara Autonoma";}}
 ```
-#### Cámara por defecto:  
-
+* #### Cámara por defecto:  
+Consiste en la clásica cámara en tercera persona, que sigue al jugador manteniendo la distancia cuando este se mueve en un ángulo fijo.  
+Para ello tomamos como referencia al objero *Player* y hacemos un vector *offset* que almacena la diferencia de posición entre la cámara y el jugador, manteniendo una distancia constante. Utilizamos el método *void LateUpdate()* para que se actualize cada vez que se mueve el jugador y mantenga la distancia.
 <details><summary>🔍 Scrip CameraControler.cs</summary>  
 
     public class CameraControler : MonoBehaviour{
@@ -135,7 +136,7 @@ También tenemos una función TextoCamara, que nos pondrá un texto indicando la
 
 </details>  
 
-#### Cámara en primera persona:
+* #### Cámara en primera persona:
 
 <details><summary>🔍 Scrip FirstPersonCameraControler.cs</summary>  
     
@@ -181,7 +182,7 @@ También tenemos una función TextoCamara, que nos pondrá un texto indicando la
 
 </details>  
 
-#### Cámara Cenital (vista desde arriba):  
+* #### Cámara Cenital (vista desde arriba):  
 
 <details><summary>🔍 Scrip CenitalCameraControler.cs</summary>      
 
@@ -203,7 +204,7 @@ También tenemos una función TextoCamara, que nos pondrá un texto indicando la
 
 </details>  
 
-#### Cámara Autónoma(cámara independiente): 
+* #### Cámara Autónoma(cámara independiente): 
 La cámara autónoma es una cámara que esta fija en la plataforma inicial, al margen del jugador.
 <details><summary>🔍 Scrip AutonomousCameraControler.cs</summary>  
     
@@ -273,7 +274,7 @@ public class Rotator : MonoBehaviour
 
 
 
-## Coleccionables (Pickups)  
+## 3) Coleccionables (Pickups)  
 En el playercontroler.cs crearemos una funcion **OnTriggerEnter (Collider other)**  que será la encargada de los objetos coleccionables que utilizaremos para ganar puntos y la partida.  
 Cuando el collider del objeto Player coinciden sus coordenadas con la de otro objeto, comprueba si dicho objeto tiene el tag "*Pickup*", para ello lo asignamos en el unity y nos aseguramos de que tiene un collider:  
 ![objeto_Pickup](https://github.com/user-attachments/assets/b7acca9a-3c75-472a-9953-85777537f856)  
@@ -292,9 +293,9 @@ Cuando la condición se cumple aumentamos nuestra variable score en 1, para aume
            SetCountText();
        }
 ```
-## Enemigo (AI Navigation)
+## 4) Enemigo (AI Navigation)
 
-## Aceleradores y Boosters
+## 5) Aceleradores y Boosters
 
 
 
