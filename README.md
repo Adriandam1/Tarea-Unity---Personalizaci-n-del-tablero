@@ -39,27 +39,8 @@ Imagen de la vista del jugador:
 
 * **Método que utilizamos para controlar la cámara del jugador:**
 
-```bash
-public class CameraControler : MonoBehaviour
-{
-    // referencia al objeto jugador
-    public GameObject player;
-    // distancia entre la camara y el juegador
-    private Vector3 offset;
-    void Start()   // Método que llamamos cuando se inicia la aplicación.
-    {
-
-        // Calcula la posicion offset entre la camara y el jugador
-        offset = transform.position - player.transform.position; 
-    }
-
-       void LateUpdate() // Último método que llamamos frame a frame.
-    {
-        // Para mantener la posición de la camara con respecto al jugador
-        transform.position = player.transform.position + offset; 
-    }
-}
-```
+  ## Control del jugador
+  Lógicamente necesitamos poder movernos y lo hacemos en el scrip *PlayerControler.cs*
 
 * **Método para controlar el movimiento del jugador:**
 ```bash
@@ -86,52 +67,9 @@ public class CameraControler : MonoBehaviour
     }
 ```  
 
-* **Método que utilizamos cuando el JUGADOR toca los objetivos(puntos):** 
-```bash
-       void SetCountText() 
-   {
-       countText.text =  "Puntación: " + count.ToString();
-   }
+  ## Cámaras
 
-   void OnTriggerEnter (Collider other) // trigger cuando comparta posicion con otro objeto
-   {
-        // cuando la bolita toque el objetivo pickup lo hacemos desaparecer
-       if (other.gameObject.CompareTag("Pickup")) // condicion el otro objeto tenga el tag "Pickup"
-       {
-           other.gameObject.SetActive(false);   // desactiva el otro objeto
-            // aumentamos el score en 1
-           count = count + 1;
-           SetCountText();   // llamamos a SetCountText
-       }
-   }
-```
-En resumen, cuando el objeto del jugador su radio de colider se posicione, en la misma posición(adyacente) que otro objeto que tenga el tag "Pickup", desactivamos dicho objeto Pickup y aumentamos el valor de la puntuacion llamando al metodo de la puntuación. La variable count esta iniciada en "on start" en 0.
-
-* **Método utilizado para que los puntos(cubitos amarillos) roten sobre si mismos**
-```bash
-public class Rotator : MonoBehaviour
-{
-
-    void Update()
-    {
-        transform.Rotate (new Vector3 (15, 30, 45) * Time.deltaTime); 
-    }
-}
-```
-
-
-En la plataforma de la izquierda tenemos varias pelotas negras con cuerpo fisico rigidbody y con una masa muy reducida para que podamos chocar con ellas y patearlas a gusto.
-
-Tambien tenemos un arbolito pelado y con una abertura estrategicamente pequeña, podemos avanzar hacia nuestra rampa gigante, las pelotas negras son demasiado grandes y no caben por lo que no tenemos peligro de lanzarlas al vacio.
-
-![unity3](https://github.com/user-attachments/assets/c9e6d2ba-0445-4f50-83ce-a1cd947ac502)
-
-**Imagen de la rampita(el cubo amarillo gigante es otro punto):**
-
-![unity4](https://github.com/user-attachments/assets/2e4dc32d-64e0-47c7-9fbe-db034d423305)
-
-
-### **Scripts de las camaras actualizados**
+  ### **Scripts de las camaras actualizados**
 
 Los scripts de cámara(uno por cada cámara) funcionan con un scrip **CameraSwicther.cs** que nos permite cambiar de una camara a otra.
 
@@ -172,6 +110,168 @@ También tenemos una función TextoCamara, que nos pondrá un texto indicando la
         if (index == 2){CamaraTexto.GetComponent<TextMeshProUGUI>().text = "Cámara Cenital";}
         if (index == 3){CamaraTexto.GetComponent<TextMeshProUGUI>().text = "Cámara Autonoma";}}
 ```
+#### Cámara por defecto:  
+
+<details><summary>🔍 Scrip CameraControler.cs</summary>  
+
+    public class CameraControler : MonoBehaviour{
+        // referencia al objeto jugador
+        public GameObject player;
+        // distancia entre la camara y el juegador
+        private Vector3 offset;
+        void Start()   // Método que llamamos cuando se inicia la aplicación.
+        {
+    
+            // Calcula la posicion offset entre la camara y el jugador
+            offset = transform.position - player.transform.position; 
+        }
+    
+           void LateUpdate() // Último método que llamamos frame a frame.
+        {
+            // Para mantener la posición de la camara con respecto al jugador
+            transform.position = player.transform.position + offset; 
+        }
+    }
+
+</details>  
+
+#### Cámara en primera persona:
+
+<details><summary>🔍 Scrip FirstPersonCameraControler.cs</summary>  
+    
+    public class FirstPersonCameraControler : MonoBehaviour{
+        public float mouseSensitivity = 100f; // Sensibilidad del ratón
+        public Transform playerBody; // Referencia al cuerpo del jugador
+        public float distanceFromPlayer = 2f; // Distancia de la cámara respecto al jugador    
+        private float xRotation = 0f; // Rotación en el eje X (arriba y abajo)
+        private float yRotation = 0f; // Rotación en el eje Y (izquierda y derecha)        
+        private Vector3 offset; // Offset para que la cámara se mantenga a una distancia fija del jugador
+    
+        void Start(){
+            Cursor.lockState = CursorLockMode.Locked; // Bloquea el cursor en el centro
+            offset = transform.position - playerBody.position; // Calcula la distancia inicial entre cámara y jugador
+        }
+    
+        void Update(){
+            // Captura el movimiento del ratón
+            // Time.deltaTime -> tiempo de cada frame
+            float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+            float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+    
+            // Controla la rotación vertical (arriba/abajo)
+            xRotation -= mouseY;
+            xRotation = Mathf.Clamp(xRotation, -90f, 90f); // Limita la rotación vertical            
+    
+            // Controla la rotación horizontal (izquierda/derecha) alrededor del eje Y del cuerpo del jugador
+            yRotation += mouseX;
+            yRotation = Mathf.Clamp(yRotation, -90f, 90f);
+            
+            transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0f);            
+            
+            // Actualiza la posición de la cámara para que siga al jugador.
+            FollowPlayer();
+        }
+    
+        // Método para que la cámara siga al jugador
+        void FollowPlayer(){
+            // La cámara sigue al jugador con la misma distancia y offset que calculamos inicialmente
+            transform.position = playerBody.position + offset.normalized * distanceFromPlayer;
+        }
+    }
+
+</details>  
+
+#### Cámara Cenital (vista desde arriba):  
+
+<details><summary>🔍 Scrip CenitalCameraControler.cs</summary>      
+
+    public class CenitalCameraControler : MonoBehaviour{
+        public GameObject player; // Referencia al jugador
+        public float height = 20f; // Altura de la cámara
+        public float rotationSpeed = 10f; // Velocidad de rotación alrededor del jugador
+    
+        void Update(){
+            // Mantén la cámara encima del jugador
+            Vector3 offset = new Vector3(0, height, 0);
+            transform.position = player.transform.position + offset;
+    
+            // Rota alrededor del jugador
+            transform.RotateAround(player.transform.position, Vector3.up, rotationSpeed * Time.deltaTime);
+            transform.LookAt(player.transform.position); // Mantén la cámara mirando al jugador
+        }
+    }
+
+</details>  
+
+#### Cámara Autónoma(cámara independiente): 
+La cámara autónoma es una cámara que esta fija en la plataforma inicial, al margen del jugador.
+<details><summary>🔍 Scrip AutonomousCameraControler.cs</summary>  
+    
+        public class AutonomousCameraControler : MonoBehaviour{
+            public GameObject player; // Referencia al jugador
+            public Transform[] waypoints; // Puntos por los que se moverá la cámara
+            public float speed = 5f; // Velocidad de movimiento
+            private int currentWaypointIndex = 0;
+
+            void Update(){
+                // Mantén la cámara siguiendo al jugador mientras se mueve entre waypoints
+                if (waypoints.Length == 0) return;
+
+                Transform targetWaypoint = waypoints[currentWaypointIndex];
+                transform.position = Vector3.MoveTowards(transform.position, targetWaypoint.position, speed * Time.deltaTime);
+                transform.LookAt(player.transform.position); // La cámara siempre apunta al jugador
+
+                // Si llega al waypoint actual, pasa al siguiente
+                if (Vector3.Distance(transform.position, targetWaypoint.position) < 0.1f){
+                    currentWaypointIndex = (currentWaypointIndex + 1) % waypoints.Length;
+                }
+            }
+        }
+    
+</details>  
+
+### **Método que utilizamos cuando el JUGADOR toca los objetivos(puntos):** 
+```bash  
+       void SetCountText() 
+   {
+       countText.text =  "Puntación: " + count.ToString();
+   }
+
+   void OnTriggerEnter (Collider other) // trigger cuando comparta posicion con otro objeto
+   {
+        // cuando la bolita toque el objetivo pickup lo hacemos desaparecer
+       if (other.gameObject.CompareTag("Pickup")) // condicion el otro objeto tenga el tag "Pickup"
+       {
+           other.gameObject.SetActive(false);   // desactiva el otro objeto
+            // aumentamos el score en 1
+           count = count + 1;
+           SetCountText();   // llamamos a SetCountText
+       }
+   }
+```
+En resumen, cuando el objeto del jugador su radio de colider se posicione, en la misma posición(adyacente) que otro objeto que tenga el tag "Pickup", desactivamos dicho objeto Pickup y aumentamos el valor de la puntuacion llamando al metodo de la puntuación. La variable count esta iniciada en "on start" en 0.
+
+* **Método utilizado para que los puntos(cubitos amarillos) roten sobre si mismos**
+```bash
+public class Rotator : MonoBehaviour
+{
+
+    void Update()
+    {
+        transform.Rotate (new Vector3 (15, 30, 45) * Time.deltaTime); 
+    }
+}
+```
+
+
+
+
+**Imagen de la rampita(el cubo amarillo gigante es otro punto):**
+
+![unity4](https://github.com/user-attachments/assets/2e4dc32d-64e0-47c7-9fbe-db034d423305)
+
+
+
 
 ## Coleccionables (Pickups)  
 En el playercontroler.cs crearemos una funcion **OnTriggerEnter (Collider other)**  que será la encargada de los objetos coleccionables que utilizaremos para ganar puntos y la partida.  
