@@ -298,5 +298,5 @@ Cuando la condición se cumple aumentamos nuestra variable score en 1, para aume
 ## 5) Aceleradores y Boosters
 
 ## 6) Estados
-
-
+                AnimatorStateInfo stateinfo = animator.GetCurrentAnimatorStateInfo(0);
+                Debug.Log("Estado actual: "+ stateInfo.fullPathHash);
