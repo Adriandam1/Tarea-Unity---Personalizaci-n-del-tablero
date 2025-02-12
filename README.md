@@ -391,10 +391,15 @@ public class Rotator : MonoBehaviour
 
 -----------------------------------------
 
-## 5) Enemigo (AI Navigation)
+## 5) Enemigo (AI Navigation)  
+Lo primero que necesitamos es instalar en Unity el paquete de AI Navigation  
+En el menu de unity vamos a Window -> PackageManager -> Packages Unity Registry -> escribimos 'ai' e instalamos “AI Navigation”  
+![navigation](https://github.com/user-attachments/assets/42c246af-39eb-49b8-908e-7cb362c34033)
+<br><br>
+
 A nuestros enemigos los vamos a controlar con el scrip ***EnemyMovement.cs***  
-Lo primero que necesitamos es importar AI del motor de unity *using UnityEngine.AI;*  
-En unity, crearemos nuestro objeto para nuestro enemigo, al que le daremos el tag *enemy*, un navMeshAgent, e indicaremos que debe dirigirse a nuestro objeto Player, para ellos arrastaremos nuestro objeto Player al insprector, así mismo  tenemos que añadir el componente *NavMeshSurface* a la zona en la que se encontrará nuestro enemigo para que pueda navegar por ella correctamente, una vez colocados todos los elementos de la zona debemos acordarnos de clicar en "**Bake**".
+Lo primero que necesitamos es importar AI del motor de unity ***using UnityEngine.AI;***  
+En unity, crearemos nuestro objeto para nuestro enemigo, al que le daremos el **tag *enemy***, un **navMeshAgent**, e indicaremos que debe dirigirse a nuestro objeto Player, para ellos arrastaremos nuestro objeto Player al insprector, así mismo  tenemos que añadir el componente ***NavMeshSurface*** a la zona en la que se encontrará nuestro enemigo para que pueda navegar por ella correctamente, una vez colocados todos los elementos de la zona debemos acordarnos de clicar en "**Bake**".
 
 ![Screenshot_20250212_115615](https://github.com/user-attachments/assets/8d1dc0f9-bdd0-44e3-879e-ef8c7dec8d9a)   ![enemy](https://github.com/user-attachments/assets/3e9075e1-357a-4e30-b406-ccede4fc050c)
 
