@@ -167,6 +167,8 @@ Creamos un array cameras, en el que introducimos el gameObject de **CameraManage
 
 Cuando el usuario pulse la tecla **C** sumaremos 1 al integer que usamos de indice, y cambiará a la siguiente cámara.
 
+**INSERTAR GIF CAMBIO DE CAMARA**
+
 ```bash
 public class CameraSwitcher : MonoBehaviour{
     public Camera[] cameras; // Array para todas las cámaras
@@ -354,10 +356,15 @@ Cuando la condición se cumple aumentamos nuestra variable score en 1, para aume
 ```
 </details>  
 
-En el método anterior llamamos a *SetCountText()* que simplemente nos cambia el canva que utiliza el jugador para comprobar si puntuación:  
+En el método anterior llamamos a *SetCountText()* que simplemente nos cambia el canva que utiliza el jugador para comprobar si puntuación. Y nos sirve para añadir una condición para ganar la partida, en este caso que el jugador llegue a 10 de puntuaciçon::  
 
        void SetCountText(){
-       countText.text =  "Puntación: " + count.ToString();
+         countText.text =  "Puntación: " + count.ToString();
+        if (count >= 10){
+          winTextObject.SetActive(true);// Muestra el texto de victoria  
+          Destroy(GameObject.FindGameObjectWithTag("Enemy")); // Destruye los objetos con el tag "enemy"
+          winTextObject.GetComponent<TextMeshProUGUI>().text = "HAS GANADO MAQUINA!!!"; // Reescribe el texto de victoria winTextObject
+          }
        } 
        
 <br><br>
@@ -385,6 +392,61 @@ public class Rotator : MonoBehaviour
 -----------------------------------------
 
 ## 5) Enemigo (AI Navigation)
+A nuestros enemigos los vamos a controlar con el scrip ***EnemyMovement.cs***  
+Lo primero que necesitamos es importar AI del motor de unity *using UnityEngine.AI;*  
+En unity, crearemos nuestro objeto para nuestro enemigo, al que le daremos el tag *enemy*, un navMeshAgent, e indicaremos que debe dirigirse a nuestro objeto Player, para ellos arrastaremos nuestro objeto Player al insprector, así mismo  tenemos que añadir el componente *NavMeshSurface* a la zona en la que se encontrará nuestro enemigo para que pueda navegar por ella correctamente, una vez colocados todos los elementos de la zona debemos acordarnos de clicar en "**Bake**".
+
+![Screenshot_20250212_115615](https://github.com/user-attachments/assets/8d1dc0f9-bdd0-44e3-879e-ef8c7dec8d9a)   ![enemy](https://github.com/user-attachments/assets/3e9075e1-357a-4e30-b406-ccede4fc050c)
+
+<details><summary>🔍 EnemyMovement.cs</summary>  
+
+```bash
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.AI; // AÑADIMOS para la AI
+// Hemos arrastrado el GameObject "Player" al playerslot del objeto "Enemy"
+public class EnemyMovement : MonoBehaviour
+{
+
+    public Transform Player;
+    private NavMeshAgent navMeshAgent;
+
+    void Start()
+    {
+        // Asignamos la variable NavMeshAgent
+        navMeshAgent = GetComponent<NavMeshAgent>();
+    }
+
+    void Update()
+    {
+        // Indicamos al enemigo que debe ir a las coordenadas del player
+        // La "destination" del enemigo se actualizara a la posición de Player cada frame
+        if (Player != null)
+            {    
+            navMeshAgent.SetDestination(Player.position);
+            //Debug.Log(Player.position); // posicion del jugador en consola
+            }
+    }
+}
+```
+
+</details>  
+
+* Interaccion enemigo-jugador
+  Con este scrip hemos creado el movimiento del enemigo, que va a localizar la posicion del jugador y moverse hacia el en su zona de navegación. Pero ahora necesitamos que el enemigo haga cosas, así que vamos a hacer que cuando el enemigo nos toque perdamos la partida, para ello nos dirigimos a nuestro *PlayerControler.cs* y creamos un método **OnCollisionEnter**.  
+  Nuestro método **OnCollisionEnter** se encargará de comprobar el tag de los objetos que colisionen con nuestro jugador, y cuando sea "*Enemy*" destruirá el objeto Player y mostrará un mensaje por pantalla al jugador indicandole que ha perdido la partida:  
+  ```bash
+     private void OnCollisionEnter(Collision collision){
+       if (collision.gameObject.CompareTag("Enemy")) //tenemos que crear el tag "Enemy" y añadirselo al EnemyBody en unity
+       {
+           Destroy(gameObject); // Destruye el objeto jugador
+           winTextObject.gameObject.SetActive(true); // Activa el canva que usamos para el mensaje de victoria o derrota
+           winTextObject.GetComponent<TextMeshProUGUI>().text = "Has perdido! Te ha matado: " + collision.gameObject.name + " !!!"; // Pinta nuestro mensaje de derrota                
+       }
+  ```
+<br><br>
+**GIF ENEMY COMIENDO JUGADOR**
 
 <br><br>
 
