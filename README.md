@@ -149,47 +149,6 @@ Ejemplo de RayCast:
       }
     ```
   </details>
-
-<br><br>  
-
-* El método **OnTriggerEnter** tiene varias funcionalidades en nuestro juego, con respecto al movimiento del jugador lo empleamos para nuestros *aceleradores* y *boosters*.  
-  - Un **acelerador**, lo entendemos como un objeto que, al hacer contacto, aumenta nuestra velocidad actual. Para ello utilizamos nuestro metodo *OnTriggerEnter(Collider other)* en el que compararemos el **tag** del objeto(que hemos indicado en el inspector de unity) con el que ha colisionado nuestro jugador, si se rorresponde con *acelerador* se crea un vector3 que recoge y multiplica la velocidad del jugador, y la aplica al rigibody del jugador a modo de impulso.
-  
-  ![acelerador](https://github.com/user-attachments/assets/1c9bc00f-4299-4226-9312-52b8e9ec34bc)
-
-  
-    <details><summary>🔍 SPOILER:</summary>  
-      
-        if (other.gameObject.CompareTag("Acelerador")){
-          Debug.Log("Has entrado en un Acelerador, velocidad aumentando x20");
-  
-          // Se crea un Vector3 llamado boost, que representa la dirección y magnitud del impulso.
-          //.normalized: Convierte el vector en un vector unitario, lo que significa que mantiene su dirección, pero su magnitud es 1.
-          // Esto garantiza que el impulso se aplique de manera uniforme sin importar si el jugador se mueve en diagonal o en línea recta.
-          // Multiplica el vector normalizado por 20f para aumentar la velocidad x20 en la dirección en la que el jugador ya se estaba moviendo.
-          Vector3 impulso = new Vector3(movementX, 0, movementY).normalized * 20f; // Ajusta la fuerza
-          
-          rb.AddForce(impulso, ForceMode.Impulse); // Aplica el impulso inmediato
-        }
-    
-    </details>
-
-  - Un **booster** es básicamente un acelerador, pero que aplica la fuerza en una dirección específica, en el caso de ejemplo, en dirección Z positiva:
-      <details><summary>🔍 SPOILER:</summary>  
-      
-        if (other.gameObject.CompareTag("Booster")){
-            Debug.Log("Has entrado en un Booster, empujando x20");
-    
-            //Se define un vector Vector3 que representa la dirección y magnitud del impulso.
-            Vector3 boost = new Vector3(0, 0, 1) * 20f; // Hacia la adelante por que usamos el eje Z
-    
-            //rb es el Rigidbody del jugador, que permite aplicar fuerzas físicas.
-            //AddForce(impulso, ForceMode.Impulse) aplica el vector de impulso al jugador.
-            //ForceMode.Impulse significa que la fuerza se aplica de golpe, como si fuera una explosión o un empujón inmediato.
-            rb.AddForce(boost, ForceMode.Impulse);
-        }
-    
-      </details>
       
 <br><br>  
 
@@ -428,7 +387,47 @@ public class Rotator : MonoBehaviour
 
 -----------------------------------------
 
-## 6) Aceleradores y Boosters
+## 6) Aceleradores y Boosters  
+En nuestro juego tambien tenemos elementos como aceleradores y boosters con los que interactuará nuestro jugador, manejando esto en nuestro *PlayerControler.cs* empleamos los siguientes metodos:
+
+* El método **OnTriggerEnter** tiene varias funcionalidades en nuestro juego, con respecto al movimiento del jugador lo empleamos para nuestros *aceleradores* y *boosters*.  
+  - Un **acelerador**, lo entendemos como un objeto que, al hacer contacto, aumenta nuestra velocidad actual. Para ello utilizamos nuestro metodo *OnTriggerEnter(Collider other)* en el que compararemos el **tag** del objeto(que hemos indicado en el inspector de unity) con el que ha colisionado nuestro jugador, si se rorresponde con *acelerador* se crea un vector3 que recoge y multiplica la velocidad del jugador, y la aplica al rigibody del jugador a modo de impulso.
+  
+  ![acelerador](https://github.com/user-attachments/assets/1c9bc00f-4299-4226-9312-52b8e9ec34bc)
+
+  
+    <details><summary>🔍 SPOILER:</summary>  
+      
+        if (other.gameObject.CompareTag("Acelerador")){
+          Debug.Log("Has entrado en un Acelerador, velocidad aumentando x20");
+  
+          // Se crea un Vector3 llamado boost, que representa la dirección y magnitud del impulso.
+          //.normalized: Convierte el vector en un vector unitario, lo que significa que mantiene su dirección, pero su magnitud es 1.
+          // Esto garantiza que el impulso se aplique de manera uniforme sin importar si el jugador se mueve en diagonal o en línea recta.
+          // Multiplica el vector normalizado por 20f para aumentar la velocidad x20 en la dirección en la que el jugador ya se estaba moviendo.
+          Vector3 impulso = new Vector3(movementX, 0, movementY).normalized * 20f; // Ajusta la fuerza
+          
+          rb.AddForce(impulso, ForceMode.Impulse); // Aplica el impulso inmediato
+        }
+    
+    </details>
+
+  - Un **booster** es básicamente un acelerador, pero que aplica la fuerza en una dirección específica, en el caso de ejemplo, en dirección Z positiva:
+      <details><summary>🔍 SPOILER:</summary>  
+      
+        if (other.gameObject.CompareTag("Booster")){
+            Debug.Log("Has entrado en un Booster, empujando x20");
+    
+            //Se define un vector Vector3 que representa la dirección y magnitud del impulso.
+            Vector3 boost = new Vector3(0, 0, 1) * 20f; // Hacia la adelante por que usamos el eje Z
+    
+            //rb es el Rigidbody del jugador, que permite aplicar fuerzas físicas.
+            //AddForce(impulso, ForceMode.Impulse) aplica el vector de impulso al jugador.
+            //ForceMode.Impulse significa que la fuerza se aplica de golpe, como si fuera una explosión o un empujón inmediato.
+            rb.AddForce(boost, ForceMode.Impulse);
+        }
+    
+      </details>
 
 <br><br>
 
