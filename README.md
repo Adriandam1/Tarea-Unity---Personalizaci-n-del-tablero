@@ -457,7 +457,9 @@ public class EnemyMovement : MonoBehaviour
        }
   ```
 <br><br>
-**GIF ENEMY COMIENDO JUGADOR**
+**GIF ENEMY COMIENDO JUGADOR**  
+![enemigo](https://github.com/user-attachments/assets/a6765c03-32f7-46ef-8240-462d1002e37b)
+
 
 <br><br>
 
