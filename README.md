@@ -372,7 +372,7 @@ Situados en *playercontroler.cs* también usaremos la funcion **OnTriggerEnter (
 Cuando el collider del objeto Player coinciden sus coordenadas con la de otro objeto, comprueba si dicho objeto tiene el tag "*Pickup*", para ello lo asignamos en el unity y nos aseguramos de que tiene un collider:  
 ![objeto_Pickup](https://github.com/user-attachments/assets/b7acca9a-3c75-472a-9953-85777537f856)  
 
-Cuando la condición se cumple aumentamos nuestra variable score en 1, para aumentar la puntuación.
+Cuando la condición se cumple aumentamos nuestra variable score en 1, para aumentar la puntuación.:
 
 <details><summary>🔍 Spoiler</summary>  
   
@@ -390,28 +390,17 @@ Cuando la condición se cumple aumentamos nuestra variable score en 1, para aume
 ```
 </details>  
 
+En el método anterior llamamos a *SetCountText()* que simplemente nos cambia el canva que utiliza el jugador para comprobar si puntuación:  
+
+       void SetCountText(){
+       countText.text =  "Puntación: " + count.ToString();
+       } 
+       
 <br><br>
 
-### **Método que utilizamos cuando el JUGADOR toca los objetivos(puntos):** 
-```bash  
-       void SetCountText() 
-   {
-       countText.text =  "Puntación: " + count.ToString();
-   }
-
-   void OnTriggerEnter (Collider other) // trigger cuando comparta posicion con otro objeto
-   {
-        // cuando la bolita toque el objetivo pickup lo hacemos desaparecer
-       if (other.gameObject.CompareTag("Pickup")) // condicion el otro objeto tenga el tag "Pickup"
-       {
-           other.gameObject.SetActive(false);   // desactiva el otro objeto
-            // aumentamos el score en 1
-           count = count + 1;
-           SetCountText();   // llamamos a SetCountText
-       }
-   }
-```
 En resumen, cuando el objeto del jugador su radio de colider se posicione, en la misma posición(adyacente) que otro objeto que tenga el tag "Pickup", desactivamos dicho objeto Pickup y aumentamos el valor de la puntuacion llamando al metodo de la puntuación. La variable count esta iniciada en "on start" en 0.
+
+**INSERTAR GIF JUGADOR COGIENDO PICKUPS**
 
 * **Método utilizado para que los puntos(cubitos amarillos) roten sobre si mismos**
 ```bash
@@ -424,13 +413,6 @@ public class Rotator : MonoBehaviour
     }
 }
 ```
-
-
-
-
-**Imagen de la rampita(el cubo amarillo gigante es otro punto):**
-
-![unity4](https://github.com/user-attachments/assets/2e4dc32d-64e0-47c7-9fbe-db034d423305)
 
 <br><br>
 
