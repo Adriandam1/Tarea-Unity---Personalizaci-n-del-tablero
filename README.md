@@ -1,16 +1,16 @@
 # Tarea-Unity---Personalizaci-n-del-tablero
 
 ## Índice  
-1. [Enunciado e Introducción](#0-enunciado-e-introducción)  
-2. [Control del jugador](#1-control-del-jugador)  
-3. [Cámaras](#2-cámaras)  
-4. [Coleccionables (Pickups)](#3-coleccionables-pickups)  
-5. [Enemigo (AI Navigation)](#4-enemigo-ai-navigation)  
-6. [Aceleradores y Boosters](#5-aceleradores-y-boosters)  
-7. [Estados](#6-estados)
+1. [Enunciado e Introducción](#1-enunciado-e-introducción)  
+2. [Control del jugador](#2-control-del-jugador)  
+3. [Cámaras](#3-cámaras)  
+4. [Coleccionables (Pickups)](#4-coleccionables-pickups)  
+5. [Enemigo (AI Navigation)](#5-enemigo-ai-navigation)  
+6. [Aceleradores y Boosters](#6-aceleradores-y-boosters)  
+7. [Estados](#7-estados)
 
 
-## 0) Enunciado e Introducción
+## 1) Enunciado e Introducción
 
 personaliza el tablero de juego con más obstáculos prueba el recorrido con la bola plantea varios niveles
 
@@ -57,7 +57,7 @@ Imagen de la vista del jugador:
 
 ---------------------------------------------------------
 
-## 1) Control del jugador
+## 2) Control del jugador
   Lógicamente necesitamos poder movernos y lo hacemos en el scrip *PlayerControler.cs*. A continuación describo los métodos para controlar el movimiento del jugador:
 * El metodo ***OnMove***  se encarga de capturar y almacenar la entrada de movimiento del jugador para que posteriormente se pueda utilizar para mover el personaje o la bolita en el juego.
   - Entrada del jugador: Cuando el jugador mueve el joystick o presiona las teclas de dirección, el sistema de entrada detecta esa acción y llama al método OnMove.
@@ -194,7 +194,7 @@ Ejemplo de RayCast:
 <br><br>  
 
 ---------------------------------------------
-  ## 2) Cámaras
+  ## 3) Cámaras
 
   ### **Scripts de las camaras actualizados**
 
@@ -363,7 +363,7 @@ La cámara autónoma es una cámara que esta fija en la plataforma inicial, al m
 ------------------------------------------
 
 
-## 3) Coleccionables (Pickups)  
+## 4) Coleccionables (Pickups)  
 Situados en *playercontroler.cs* también usaremos la funcion **OnTriggerEnter (Collider other)**  que será la encargada de los objetos coleccionables que utilizaremos para ganar puntos y la partida.  
 Cuando el collider del objeto Player coinciden sus coordenadas con la de otro objeto, comprueba si dicho objeto tiene el tag "*Pickup*", para ello lo asignamos en el unity y nos aseguramos de que tiene un collider:  
 ![objeto_Pickup](https://github.com/user-attachments/assets/b7acca9a-3c75-472a-9953-85777537f856)  
@@ -431,18 +431,18 @@ public class Rotator : MonoBehaviour
 
 -----------------------------------------
 
-## 4) Enemigo (AI Navigation)
+## 5) Enemigo (AI Navigation)
 
 <br><br>
 
 -----------------------------------------
 
-## 5) Aceleradores y Boosters
+## 6) Aceleradores y Boosters
 
 <br><br>
 
 -----------------------------------------
 
-## 6) Estados
+## 7) Estados
                 AnimatorStateInfo stateinfo = animator.GetCurrentAnimatorStateInfo(0);
                 Debug.Log("Estado actual: "+ stateInfo.fullPathHash);
