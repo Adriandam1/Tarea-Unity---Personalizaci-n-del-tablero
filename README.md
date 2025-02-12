@@ -1,5 +1,16 @@
 # Tarea-Unity---Personalizaci-n-del-tablero
-**Enunciado:**
+
+## Índice  
+1. [Enunciado e Introducción](#0-enunciado-e-introducción)  
+2. [Control del jugador](#1-control-del-jugador)  
+3. [Cámaras](#2-cámaras)  
+4. [Coleccionables (Pickups)](#3-coleccionables-pickups)  
+5. [Enemigo (AI Navigation)](#4-enemigo-ai-navigation)  
+6. [Aceleradores y Boosters](#5-aceleradores-y-boosters)  
+7. [Estados](#6-estados)
+
+
+## 0) Enunciado e Introducción
 
 personaliza el tablero de juego con más obstáculos prueba el recorrido con la bola plantea varios niveles
 
@@ -43,6 +54,9 @@ Imagen de la vista del jugador:
 
 ---- **Aqui meter métodos con explicación**
 <br><br>
+
+---------------------------------------------------------
+
 ## 1) Control del jugador
   Lógicamente necesitamos poder movernos y lo hacemos en el scrip *PlayerControler.cs*. A continuación describo los métodos para controlar el movimiento del jugador:
 * El metodo ***OnMove***  se encarga de capturar y almacenar la entrada de movimiento del jugador para que posteriormente se pueda utilizar para mover el personaje o la bolita en el juego.
@@ -139,7 +153,10 @@ Ejemplo de RayCast:
 <br><br>  
 
 * El método **OnTriggerEnter** tiene varias funcionalidades en nuestro juego, con respecto al movimiento del jugador lo empleamos para nuestros *aceleradores* y *boosters*.  
-  - Un **acelerador**, lo entendemos como un objeto que, al hacer contacto, aumenta nuestra velocidad actual. Para ello utilizamos nuestro metodo *OnTriggerEnter(Collider other)* en el que compararemos el **tag** del objeto con el que ha colisionado nuestro jugador, si se rorresponde con *acelerador* se crea un vector3 que recoge y multiplica la velocidad del jugador, y la aplica al rigibody del jugador a modo de impulso.
+  - Un **acelerador**, lo entendemos como un objeto que, al hacer contacto, aumenta nuestra velocidad actual. Para ello utilizamos nuestro metodo *OnTriggerEnter(Collider other)* en el que compararemos el **tag** del objeto(que hemos indicado en el inspector de unity) con el que ha colisionado nuestro jugador, si se rorresponde con *acelerador* se crea un vector3 que recoge y multiplica la velocidad del jugador, y la aplica al rigibody del jugador a modo de impulso.
+  
+  ![acelerador](https://github.com/user-attachments/assets/1c9bc00f-4299-4226-9312-52b8e9ec34bc)
+
   
     <details><summary>🔍 SPOILER:</summary>  
       
@@ -173,9 +190,10 @@ Ejemplo de RayCast:
         }
     
       </details>
+      
 <br><br>  
 
-
+---------------------------------------------
   ## 2) Cámaras
 
   ### **Scripts de las camaras actualizados**
@@ -340,6 +358,36 @@ La cámara autónoma es una cámara que esta fija en la plataforma inicial, al m
     
 </details>  
 
+<br><br>
+
+------------------------------------------
+
+
+## 3) Coleccionables (Pickups)  
+Situados en *playercontroler.cs* también usaremos la funcion **OnTriggerEnter (Collider other)**  que será la encargada de los objetos coleccionables que utilizaremos para ganar puntos y la partida.  
+Cuando el collider del objeto Player coinciden sus coordenadas con la de otro objeto, comprueba si dicho objeto tiene el tag "*Pickup*", para ello lo asignamos en el unity y nos aseguramos de que tiene un collider:  
+![objeto_Pickup](https://github.com/user-attachments/assets/b7acca9a-3c75-472a-9953-85777537f856)  
+
+Cuando la condición se cumple aumentamos nuestra variable score en 1, para aumentar la puntuación.
+
+<details><summary>🔍 Spoiler</summary>  
+  
+```bash
+   void OnTriggerEnter (Collider other) 
+   {
+        // cuando la bolita toque el objetivo pickup lo hacemos desaparecer
+       if (other.gameObject.CompareTag("Pickup")) 
+       {
+           other.gameObject.SetActive(false);
+            // aumentamos el score en 1
+           count = count + 1;
+           SetCountText();
+       }
+```
+</details>  
+
+<br><br>
+
 ### **Método que utilizamos cuando el JUGADOR toca los objetivos(puntos):** 
 ```bash  
        void SetCountText() 
@@ -380,33 +428,21 @@ public class Rotator : MonoBehaviour
 
 ![unity4](https://github.com/user-attachments/assets/2e4dc32d-64e0-47c7-9fbe-db034d423305)
 
-<br><br>
-## 3) Coleccionables (Pickups)  
-Situados en *playercontroler.cs* crearemos una funcion **OnTriggerEnter (Collider other)**  que será la encargada de los objetos coleccionables que utilizaremos para ganar puntos y la partida.  
-Cuando el collider del objeto Player coinciden sus coordenadas con la de otro objeto, comprueba si dicho objeto tiene el tag "*Pickup*", para ello lo asignamos en el unity y nos aseguramos de que tiene un collider:  
-![objeto_Pickup](https://github.com/user-attachments/assets/b7acca9a-3c75-472a-9953-85777537f856)  
 
-Cuando la condición se cumple aumentamos nuestra variable score en 1, para aumentar la puntuación.
+-----------------------------------------
 
-```bash
-   void OnTriggerEnter (Collider other) 
-   {
-        // cuando la bolita toque el objetivo pickup lo hacemos desaparecer
-       if (other.gameObject.CompareTag("Pickup")) 
-       {
-           other.gameObject.SetActive(false);
-            // aumentamos el score en 1
-           count = count + 1;
-           SetCountText();
-       }
-```
-<br><br>
 ## 4) Enemigo (AI Navigation)
 
 <br><br>
+
+-----------------------------------------
+
 ## 5) Aceleradores y Boosters
 
 <br><br>
+
+-----------------------------------------
+
 ## 6) Estados
                 AnimatorStateInfo stateinfo = animator.GetCurrentAnimatorStateInfo(0);
                 Debug.Log("Estado actual: "+ stateInfo.fullPathHash);
