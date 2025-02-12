@@ -362,6 +362,8 @@ La cámara autónoma es una cámara que esta fija en la plataforma inicial, al m
 
 <br><br>
 
+[Volver al inicio](#índice) 
+
 ------------------------------------------
 
 
@@ -430,6 +432,9 @@ public class Rotator : MonoBehaviour
 
 ![unity4](https://github.com/user-attachments/assets/2e4dc32d-64e0-47c7-9fbe-db034d423305)
 
+<br><br>
+
+[Volver al inicio](#índice) 
 
 -----------------------------------------
 
@@ -437,14 +442,23 @@ public class Rotator : MonoBehaviour
 
 <br><br>
 
+[Volver al inicio](#índice) 
+
 -----------------------------------------
 
 ## 6) Aceleradores y Boosters
 
 <br><br>
 
+[Volver al inicio](#índice) 
+
 -----------------------------------------
 
 ## 7) Estados
                 AnimatorStateInfo stateinfo = animator.GetCurrentAnimatorStateInfo(0);
                 Debug.Log("Estado actual: "+ stateInfo.fullPathHash);
+
+
+[Volver al inicio](#índice) 
+
+
