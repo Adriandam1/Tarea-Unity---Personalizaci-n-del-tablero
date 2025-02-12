@@ -371,7 +371,11 @@ En el método anterior llamamos a *SetCountText()* que simplemente nos cambia el
 
 En resumen, cuando el objeto del jugador su radio de colider se posicione, en la misma posición(adyacente) que otro objeto que tenga el tag "Pickup", desactivamos dicho objeto Pickup y aumentamos el valor de la puntuacion llamando al metodo de la puntuación. La variable count esta iniciada en "on start" en 0.
 
-**INSERTAR GIF JUGADOR COGIENDO PICKUPS**
+**INSERTAR GIF JUGADOR COGIENDO PICKUPS**  
+![Grabación de pantalla - Feb 12, 2025-VEED](https://github.com/user-attachments/assets/889d56ec-9450-402b-b4ce-5b5ec4985841)
+
+
+
 
 * **Método utilizado para que los puntos(cubitos amarillos) roten sobre si mismos**
 ```bash
