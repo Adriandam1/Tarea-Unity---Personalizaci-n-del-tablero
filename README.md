@@ -167,7 +167,9 @@ Creamos un array cameras, en el que introducimos el gameObject de **CameraManage
 
 Cuando el usuario pulse la tecla **C** sumaremos 1 al integer que usamos de indice, y cambiará a la siguiente cámara.
 
-**INSERTAR GIF CAMBIO DE CAMARA**
+**INSERTAR GIF CAMBIO DE CAMARA**  
+![cambios_camara](https://github.com/user-attachments/assets/83ef0d00-eb79-4d57-838a-67d099bb7041)
+
 
 ```bash
 public class CameraSwitcher : MonoBehaviour{
