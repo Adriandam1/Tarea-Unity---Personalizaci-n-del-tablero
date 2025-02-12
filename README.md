@@ -198,126 +198,131 @@ También tenemos una función TextoCamara, que nos pondrá un texto indicando la
         if (index == 2){CamaraTexto.GetComponent<TextMeshProUGUI>().text = "Cámara Cenital";}
         if (index == 3){CamaraTexto.GetComponent<TextMeshProUGUI>().text = "Cámara Autonoma";}}
 ```
-* #### Cámara por defecto:  
-Consiste en la clásica cámara en tercera persona, que sigue al jugador manteniendo la distancia cuando este se mueve en un ángulo fijo.  
-Para ello tomamos como referencia al objero *Player* y hacemos un vector *offset* que almacena la diferencia de posición entre la cámara y el jugador, manteniendo una distancia constante. Utilizamos el método *void LateUpdate()* para que se actualize cada vez que se mueve el jugador y mantenga la distancia.
-<details><summary>🔍 Scrip CameraControler.cs</summary>  
+* Cámara por defecto:  
+  Consiste en la clásica cámara en tercera persona, que sigue al jugador manteniendo la distancia cuando este se mueve en un ángulo fijo. Para ello tomamos como referencia al objero *Player* y hacemos un vector *offset* que almacena la diferencia de posición entre la cámara y el jugador, manteniendo una distancia constante. Utilizamos el método *void LateUpdate()* para que se actualize cada vez que se mueve el jugador y mantenga la distancia.
+  <details><summary>🔍 Scrip CameraControler.cs</summary>  
+  
+      public class CameraControler : MonoBehaviour{
+          // referencia al objeto jugador
+          public GameObject player;
+          // distancia entre la camara y el juegador
+          private Vector3 offset;
+          void Start()   // Método que llamamos cuando se inicia la aplicación.
+          {
+      
+              // Calcula la posicion offset entre la camara y el jugador
+              offset = transform.position - player.transform.position; 
+          }
+      
+             void LateUpdate() // Último método que llamamos frame a frame.
+          {
+              // Para mantener la posición de la camara con respecto al jugador
+              transform.position = player.transform.position + offset; 
+          }
+      }
+  
+  </details>  
 
-    public class CameraControler : MonoBehaviour{
-        // referencia al objeto jugador
-        public GameObject player;
-        // distancia entre la camara y el juegador
-        private Vector3 offset;
-        void Start()   // Método que llamamos cuando se inicia la aplicación.
-        {
-    
-            // Calcula la posicion offset entre la camara y el jugador
-            offset = transform.position - player.transform.position; 
-        }
-    
-           void LateUpdate() // Último método que llamamos frame a frame.
-        {
-            // Para mantener la posición de la camara con respecto al jugador
-            transform.position = player.transform.position + offset; 
-        }
-    }
+<br><br>  
+* Cámara en primera persona:
+  La cámara que simula ser los ojos de nuestro jugador:
 
-</details>  
+  <details><summary>🔍 Scrip FirstPersonCameraControler.cs</summary>  
+      
+      public class FirstPersonCameraControler : MonoBehaviour{
+          public float mouseSensitivity = 100f; // Sensibilidad del ratón
+          public Transform playerBody; // Referencia al cuerpo del jugador
+          public float distanceFromPlayer = 2f; // Distancia de la cámara respecto al jugador    
+          private float xRotation = 0f; // Rotación en el eje X (arriba y abajo)
+          private float yRotation = 0f; // Rotación en el eje Y (izquierda y derecha)        
+          private Vector3 offset; // Offset para que la cámara se mantenga a una distancia fija del jugador
+      
+          void Start(){
+              Cursor.lockState = CursorLockMode.Locked; // Bloquea el cursor en el centro
+              offset = transform.position - playerBody.position; // Calcula la distancia inicial entre cámara y jugador
+          }
+      
+          void Update(){
+              // Captura el movimiento del ratón
+              // Time.deltaTime -> tiempo de cada frame
+              float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+              float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+      
+              // Controla la rotación vertical (arriba/abajo)
+              xRotation -= mouseY;
+              xRotation = Mathf.Clamp(xRotation, -90f, 90f); // Limita la rotación vertical            
+      
+              // Controla la rotación horizontal (izquierda/derecha) alrededor del eje Y del cuerpo del jugador
+              yRotation += mouseX;
+              yRotation = Mathf.Clamp(yRotation, -90f, 90f);
+              
+              transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0f);            
+              
+              // Actualiza la posición de la cámara para que siga al jugador.
+              FollowPlayer();
+          }
+      
+          // Método para que la cámara siga al jugador
+          void FollowPlayer(){
+              // La cámara sigue al jugador con la misma distancia y offset que calculamos inicialmente
+              transform.position = playerBody.position + offset.normalized * distanceFromPlayer;
+          }
+      }
+  
+  </details>  
 
-* #### Cámara en primera persona:
+  <br><br>  
+* Cámara Cenital:
+  Cámara aérea que sigue a nuestro jugador desde el aire en un angulo de 90 grados:
 
-<details><summary>🔍 Scrip FirstPersonCameraControler.cs</summary>  
-    
-    public class FirstPersonCameraControler : MonoBehaviour{
-        public float mouseSensitivity = 100f; // Sensibilidad del ratón
-        public Transform playerBody; // Referencia al cuerpo del jugador
-        public float distanceFromPlayer = 2f; // Distancia de la cámara respecto al jugador    
-        private float xRotation = 0f; // Rotación en el eje X (arriba y abajo)
-        private float yRotation = 0f; // Rotación en el eje Y (izquierda y derecha)        
-        private Vector3 offset; // Offset para que la cámara se mantenga a una distancia fija del jugador
-    
-        void Start(){
-            Cursor.lockState = CursorLockMode.Locked; // Bloquea el cursor en el centro
-            offset = transform.position - playerBody.position; // Calcula la distancia inicial entre cámara y jugador
-        }
-    
-        void Update(){
-            // Captura el movimiento del ratón
-            // Time.deltaTime -> tiempo de cada frame
-            float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-            float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
-    
-            // Controla la rotación vertical (arriba/abajo)
-            xRotation -= mouseY;
-            xRotation = Mathf.Clamp(xRotation, -90f, 90f); // Limita la rotación vertical            
-    
-            // Controla la rotación horizontal (izquierda/derecha) alrededor del eje Y del cuerpo del jugador
-            yRotation += mouseX;
-            yRotation = Mathf.Clamp(yRotation, -90f, 90f);
-            
-            transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0f);            
-            
-            // Actualiza la posición de la cámara para que siga al jugador.
-            FollowPlayer();
-        }
-    
-        // Método para que la cámara siga al jugador
-        void FollowPlayer(){
-            // La cámara sigue al jugador con la misma distancia y offset que calculamos inicialmente
-            transform.position = playerBody.position + offset.normalized * distanceFromPlayer;
-        }
-    }
+  <details><summary>🔍 Scrip CenitalCameraControler.cs</summary>      
+  
+      public class CenitalCameraControler : MonoBehaviour{
+          public GameObject player; // Referencia al jugador
+          public float height = 20f; // Altura de la cámara
+          public float rotationSpeed = 10f; // Velocidad de rotación alrededor del jugador
+      
+          void Update(){
+              // Mantén la cámara encima del jugador
+              Vector3 offset = new Vector3(0, height, 0);
+              transform.position = player.transform.position + offset;
+      
+              // Rota alrededor del jugador
+              transform.RotateAround(player.transform.position, Vector3.up, rotationSpeed * Time.deltaTime);
+              transform.LookAt(player.transform.position); // Mantén la cámara mirando al jugador
+          }
+      }
+  
+  </details>  
 
-</details>  
-
-* #### Cámara Cenital (vista desde arriba):  
-
-<details><summary>🔍 Scrip CenitalCameraControler.cs</summary>      
-
-    public class CenitalCameraControler : MonoBehaviour{
-        public GameObject player; // Referencia al jugador
-        public float height = 20f; // Altura de la cámara
-        public float rotationSpeed = 10f; // Velocidad de rotación alrededor del jugador
-    
-        void Update(){
-            // Mantén la cámara encima del jugador
-            Vector3 offset = new Vector3(0, height, 0);
-            transform.position = player.transform.position + offset;
-    
-            // Rota alrededor del jugador
-            transform.RotateAround(player.transform.position, Vector3.up, rotationSpeed * Time.deltaTime);
-            transform.LookAt(player.transform.position); // Mantén la cámara mirando al jugador
-        }
-    }
-
-</details>  
-
-* #### Cámara Autónoma(cámara independiente): 
+<br><br>  
+* Cámara Autónoma(cámara independiente): 
 La cámara autónoma es una cámara que esta fija en la plataforma inicial, al margen del jugador.
-<details><summary>🔍 Scrip AutonomousCameraControler.cs</summary>  
-    
-        public class AutonomousCameraControler : MonoBehaviour{
-            public GameObject player; // Referencia al jugador
-            public Transform[] waypoints; // Puntos por los que se moverá la cámara
-            public float speed = 5f; // Velocidad de movimiento
-            private int currentWaypointIndex = 0;
 
-            void Update(){
-                // Mantén la cámara siguiendo al jugador mientras se mueve entre waypoints
-                if (waypoints.Length == 0) return;
-
-                Transform targetWaypoint = waypoints[currentWaypointIndex];
-                transform.position = Vector3.MoveTowards(transform.position, targetWaypoint.position, speed * Time.deltaTime);
-                transform.LookAt(player.transform.position); // La cámara siempre apunta al jugador
-
-                // Si llega al waypoint actual, pasa al siguiente
-                if (Vector3.Distance(transform.position, targetWaypoint.position) < 0.1f){
-                    currentWaypointIndex = (currentWaypointIndex + 1) % waypoints.Length;
-                }
-            }
-        }
-    
-</details>  
+  <details><summary>🔍 Scrip AutonomousCameraControler.cs</summary>  
+      
+          public class AutonomousCameraControler : MonoBehaviour{
+              public GameObject player; // Referencia al jugador
+              public Transform[] waypoints; // Puntos por los que se moverá la cámara
+              public float speed = 5f; // Velocidad de movimiento
+              private int currentWaypointIndex = 0;
+  
+              void Update(){
+                  // Mantén la cámara siguiendo al jugador mientras se mueve entre waypoints
+                  if (waypoints.Length == 0) return;
+  
+                  Transform targetWaypoint = waypoints[currentWaypointIndex];
+                  transform.position = Vector3.MoveTowards(transform.position, targetWaypoint.position, speed * Time.deltaTime);
+                  transform.LookAt(player.transform.position); // La cámara siempre apunta al jugador
+  
+                  // Si llega al waypoint actual, pasa al siguiente
+                  if (Vector3.Distance(transform.position, targetWaypoint.position) < 0.1f){
+                      currentWaypointIndex = (currentWaypointIndex + 1) % waypoints.Length;
+                  }
+              }
+          }
+      
+  </details>  
 
 <br><br>
 
