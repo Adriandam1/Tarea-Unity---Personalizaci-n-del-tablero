@@ -81,7 +81,10 @@ Imagen de la vista del jugador:
   </details>
   
 <br><br>
-* El método *OnFire* permite al jugador saltar. Cuando es llamado aplica una fuerza vertical con un Vector3.up a modo de impulso. Para evitar que el jugador pueda saltar en el aire, y solo tenga 1 salo, utilizamos *TocandoSuelo*. Comprobamos con un uso de RayCast la distancia con el suelo, de modo que si el jugador esta en el aire, no puede saltar.
+* El método ***OnFire*** permite al jugador saltar. Cuando es llamado aplica una fuerza vertical con un Vector3.up a modo de impulso. Para evitar que el jugador pueda saltar en el aire, y solo tenga 1 salo, utilizamos *TocandoSuelo*. Comprobamos con un uso de RayCast la distancia con el suelo, de modo que si el jugador esta en el aire, no puede saltar.  
+Ejemplo de RayCast:  
+![raycast](https://github.com/user-attachments/assets/0fc09c2e-fa61-45ed-bc32-acda304e198d)
+
 
   <details><summary>🔍 SPOILER:</summary>  
   
@@ -102,6 +105,77 @@ Imagen de la vista del jugador:
   </details>
 
 <br><br>
+* El método **RespawnPlayer**, se encarga de recolocar al jugador en su posición de inicioEn el caso de que el jugador se caiga de la plataforma necesitaremos recolocarlo.**RespawnPlayer** tiene su llamada en el **update** dicho y se ejecuta si se cumple la condición de que el jugador alcanza la posición vertical -1. Este método **RespawnPlayer** tambie cambia el estado del jugador, veremos los estados mas adelante.
+
+  <details><summary>🔍 SPOILER:</summary>  
+    
+      void Update(){
+      // Si la posición en Y es menor a 0, teletransporta al jugador a una posición segura
+      if (transform.position.y < -1)
+      {
+          RespawnPlayer();
+      }
+    ```
+      async void RespawnPlayer(){
+          Debug.Log("El jugador se ha caído, transportándolo al inicio...");
+          Caiste_mensaje.SetActive(true); // Canva informativo para el jugador
+          animator.SetBool("transportado", true); // Condicion estado "transportado".
+          
+          await Task.Delay(1000);  // Espera de 1 segundos para la animación de teletransporte
+  
+          Vector3 respawnPosition = new Vector3(0, 3, 0); // vector3 con la posicion a transportar
+          rb.MovePosition(respawnPosition); // Corrige la posición con Rigidbody
+          rb.velocity = Vector3.zero; // baja velocidades a 0
+          rb.angularVelocity = Vector3.zero; // baja velocidad angular a 0
+  
+          Caiste_mensaje.SetActive(false);
+  
+          await Task.Delay(750);  // Espera 0,75 segundos antes de volver al estado inicial
+          animator.SetBool("transportado", false);
+      }
+    ```
+  </details>
+
+<br><br>  
+
+* El método **OnTriggerEnter** tiene varias funcionalidades en nuestro juego, con respecto al movimiento del jugador lo empleamos para nuestros *aceleradores* y *boosters*.  
+  - Un **acelerador**, lo entendemos como un objeto que, al hacer contacto, aumenta nuestra velocidad actual. Para ello utilizamos nuestro metodo *OnTriggerEnter(Collider other)* en el que compararemos el **tag** del objeto con el que ha colisionado nuestro jugador, si se rorresponde con *acelerador* se crea un vector3 que recoge y multiplica la velocidad del jugador, y la aplica al rigibody del jugador a modo de impulso.
+  
+    <details><summary>🔍 SPOILER:</summary>  
+      
+        if (other.gameObject.CompareTag("Acelerador")){
+          Debug.Log("Has entrado en un Acelerador, velocidad aumentando x20");
+  
+          // Se crea un Vector3 llamado boost, que representa la dirección y magnitud del impulso.
+          //.normalized: Convierte el vector en un vector unitario, lo que significa que mantiene su dirección, pero su magnitud es 1.
+          // Esto garantiza que el impulso se aplique de manera uniforme sin importar si el jugador se mueve en diagonal o en línea recta.
+          // Multiplica el vector normalizado por 20f para aumentar la velocidad x20 en la dirección en la que el jugador ya se estaba moviendo.
+          Vector3 impulso = new Vector3(movementX, 0, movementY).normalized * 20f; // Ajusta la fuerza
+          
+          rb.AddForce(impulso, ForceMode.Impulse); // Aplica el impulso inmediato
+        }
+    
+    </details>
+
+  - Un **booster** es básicamente un acelerador, pero que aplica la fuerza en una dirección específica, en el caso de ejemplo, en dirección Z positiva:
+      <details><summary>🔍 SPOILER:</summary>  
+      
+        if (other.gameObject.CompareTag("Booster")){
+            Debug.Log("Has entrado en un Booster, empujando x20");
+    
+            //Se define un vector Vector3 que representa la dirección y magnitud del impulso.
+            Vector3 boost = new Vector3(0, 0, 1) * 20f; // Hacia la adelante por que usamos el eje Z
+    
+            //rb es el Rigidbody del jugador, que permite aplicar fuerzas físicas.
+            //AddForce(impulso, ForceMode.Impulse) aplica el vector de impulso al jugador.
+            //ForceMode.Impulse significa que la fuerza se aplica de golpe, como si fuera una explosión o un empujón inmediato.
+            rb.AddForce(boost, ForceMode.Impulse);
+        }
+    
+      </details>
+<br><br>  
+
+
   ## 2) Cámaras
 
   ### **Scripts de las camaras actualizados**
