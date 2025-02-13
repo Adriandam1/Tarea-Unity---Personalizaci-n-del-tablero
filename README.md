@@ -151,6 +151,10 @@ Ejemplo de RayCast:
       }
     ```
   </details>
+
+**Movimiento de jugador bolita amarilla**  
+![movimiento](https://github.com/user-attachments/assets/da275400-f3ca-4108-9901-713142622e37)
+
       
 <br><br>  
 
@@ -169,7 +173,7 @@ Creamos un array cameras, en el que introducimos el gameObject de **CameraManage
 
 Cuando el usuario pulse la tecla **C** sumaremos 1 al integer que usamos de indice, y cambiará a la siguiente cámara.
 
-**INSERTAR GIF CAMBIO DE CAMARA**  
+**GIF CAMBIO DE CAMARA**  
 ![cambios_camara](https://github.com/user-attachments/assets/83ef0d00-eb79-4d57-838a-67d099bb7041)
 
 
@@ -360,7 +364,7 @@ Cuando la condición se cumple aumentamos nuestra variable score en 1, para aume
 ```
 </details>  
 
-En el método anterior llamamos a *SetCountText()* que simplemente nos cambia el canva que utiliza el jugador para comprobar si puntuación. Y nos sirve para añadir una condición para ganar la partida, en este caso que el jugador llegue a 10 de puntuaciçon::  
+En el método anterior llamamos a *SetCountText()* que simplemente nos cambia el canva que utiliza el jugador para comprobar si puntuación. Y nos sirve para añadir una condición para ganar la partida, en este caso que el jugador llegue a 10 de puntuacición:  
 
        void SetCountText(){
          countText.text =  "Puntación: " + count.ToString();
@@ -375,7 +379,7 @@ En el método anterior llamamos a *SetCountText()* que simplemente nos cambia el
 
 En resumen, cuando el objeto del jugador su radio de colider se posicione, en la misma posición(adyacente) que otro objeto que tenga el tag "Pickup", desactivamos dicho objeto Pickup y aumentamos el valor de la puntuacion llamando al metodo de la puntuación. La variable count esta iniciada en "on start" en 0.
 
-**INSERTAR GIF JUGADOR COGIENDO PICKUPS**  
+**GIF JUGADOR COGIENDO PICKUPS**  
 ![Grabación de pantalla - Feb 12, 2025-VEED](https://github.com/user-attachments/assets/889d56ec-9450-402b-b4ce-5b5ec4985841)
 
 
@@ -459,7 +463,7 @@ public class EnemyMovement : MonoBehaviour
        }
   ```
 <br><br>
-**GIF ENEMY COMIENDO JUGADOR**  
+**ENEMY COMIENDO JUGADOR**  
 ![enemigo](https://github.com/user-attachments/assets/a6765c03-32f7-46ef-8240-462d1002e37b)
 
 
