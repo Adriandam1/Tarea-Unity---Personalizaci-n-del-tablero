@@ -55,6 +55,8 @@ Imagen de la vista del jugador:
 ---- **Aqui meter métodos con explicación**
 <br><br>
 
+[Volver al inicio](#índice) 
+
 ---------------------------------------------------------
 
 ## 2) Control del jugador
