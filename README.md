@@ -529,3 +529,17 @@ En nuestro juego tambien tenemos elementos como aceleradores y boosters con los 
 [Volver al inicio](#índice) 
 
 
+
+**ESTADOS WIFI**
+
+<details><summary>🔍 SPOILER:</summary>  
+  
+https://github.com/user-attachments/assets/377abb6f-8649-4e3f-afb8-7e62f1e9b1be
+
+</details>
+
+
+
+
+
+
