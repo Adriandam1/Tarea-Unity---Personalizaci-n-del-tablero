@@ -538,6 +538,21 @@ https://github.com/user-attachments/assets/377abb6f-8649-4e3f-afb8-7e62f1e9b1be
 
 </details>
 
+Diferentes formas de manejar nuestros estados, demostradas en el video anterior:  
+**OnTrigger** crearemos un parametros Trigger, y añadiremos una transición al estado objetivo con la condicion del trigger
+<br><br>
+![ontrigger](https://github.com/user-attachments/assets/bf4a02f4-0d57-448f-bfe2-6aec59a80642)
+
+En nuestro codigo elegimor la funcion que queremos que nos haga de trigger y añadimos la linea:
+```bash
+animator.SetTrigger("OnFireT");
+```
+<br><br>
+**Booleano** crearemos un parametro Boolean
+
+**Integer** crearemos un parametro Int
+
+
 
 
 
