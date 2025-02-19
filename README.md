@@ -571,7 +571,7 @@ En la imagen superior comprobamos que podemos añadir condiciones a las transici
 ## 8) Acelerometro (móvil)
 El acelerometro del teléfono nos permite dar ordenes de movimiento a nuestro player, en el siguiente spoiler detallo los pasos para preparar nuestro juego para pasarlo a un dispositivo móvil.
 
-<details><summary>🔍 SPOILER:</summary>  
+<details><summary>🔍 SPOILER Paso a paso creacion APK:</summary>  
 
 Lo primero que vamos a necesitar es instalar el modulo de Android para nuestra version de unity
 
@@ -594,6 +594,8 @@ tras hacerlo ajustamos los player settings en la esquina inferior izquierda, aqu
 
 ![build](https://github.com/user-attachments/assets/d0f2a65a-1e9e-469e-8a44-88276decd0d7)
 
+Una vez lo tengamos todo le damos a build y esto nos creará el .apk solo tenemos que descargarlo en nuestro dispositivo e instalarlo para poder jugar.
+
 </details>
 
 Lógicamente nuestros scripts de movimiento previos no funcionan para la versión de teléfono movil, ya que no tenemos teclado ni raton. Para hacer uso del acelerometro del móvil con el objetivo de mover nuestro player utilizaremos el siguiente código en nuestro scrip de PlayerControler.cs:
@@ -614,6 +616,7 @@ Lo añadimos en nuestra función *update()* o *FixedUpdate()*
 <br><br>
 
 [Volver al inicio](#índice) 
+
 
 
 
