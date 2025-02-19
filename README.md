@@ -8,7 +8,7 @@
 5. [Enemigo (AI Navigation)](#5-enemigo-ai-navigation)  
 6. [Aceleradores y Boosters](#6-aceleradores-y-boosters)  
 7. [Estados](#7-estados)
-
+8. [APP móvil](#8-Acelerometro+(móvil))
 
 ## 1) Enunciado e Introducción
 
@@ -553,6 +553,52 @@ animator.SetTrigger("OnFireT");
 **Integer** crearemos un parametro Int
 
 
+## 8) Acelerometro (móvil)
+El acelerometro del teléfono nos permite dar ordenes de movimiento a nuestro player, en el siguiente spoiler detallo los pasos para preparar nuestro juego para pasarlo a un dispositivo móvil.
+
+<details><summary>🔍 SPOILER:</summary>  
+
+Lo primero que vamos a necesitar es instalar el modulo de Android para nuestra version de unity
+
+Vamos en el menu de proyects a la pestaña installs, elegimos nuestra version de unity (en este caso es la Unity (2022.3.55f1) y clicamos en la ruedita -> Add modules.  
+![installs](https://github.com/user-attachments/assets/fc76f401-37f8-4995-b073-85a0d262bed2)
+
+
+Elegimos Android Build Support, ya que usaremos android, si da error hay que darle a reintentar  
+![openjdk](https://github.com/user-attachments/assets/dc66af83-ccfe-472c-9df0-9e4957c5e9cc)
+
+
+
+Abrimos el proyecto y vamos a File -> build settings -> elegimos android 
+primero le damos abajo a le damos abajo a switch platform, esto te comprime las texturas para el telefono  
+tras hacerlo ajustamos los player settings en la esquina inferior izquierda, aqui podemos:
+ - **Importante**: para que nos funcionen los controles en el telefono debemos ir a **other settings** y cambiar **Active Input Handling** a **Input Manager(old)** para usar los controles del teléfono en lugar de los del pc
+ - asignar el nombre de nuestra app
+ - Resolution and presentation -> Orientation: podemos configurar si la pantalla de juego rotará cuando rote el telefono o la resolucion y como queremos que tenga el aspecto nuestro juego.
+ - Más cosas...
+
+![build](https://github.com/user-attachments/assets/d0f2a65a-1e9e-469e-8a44-88276decd0d7)
+
+</details>
+
+Lógicamente nuestros scripts de movimiento previos no funcionan para la versión de teléfono movil, ya que no tenemos teclado ni raton. Para hacer uso del acelerometro del móvil con el objetivo de mover nuestro player utilizaremos el siguiente código en nuestro scrip de PlayerControler.cs:
+
+Lo añadimos en nuestra función *update()* o *FixedUpdate()*
+```bash
+        Vector3 dir = Vector3.zero;
+        dir.x = -Input.acceleration.y;
+        dir.z = Input.acceleration.x;
+        if (dir.sqrMagnitude > 1)
+            dir.Normalize();
+        
+        dir *= Time.deltaTime;
+        //transform.Translate(dir * speed);
+        transform.Translate(dir * speed, Space.World);
+```
+
+<br><br>
+
+[Volver al inicio](#índice) 
 
 
 
