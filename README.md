@@ -20,39 +20,16 @@ Añade varios gif al Readme con diferentes fases del diseño del tablero
 
 Pon el repositorio en la respuesta, con el Readme.
 
-
-### Readme:
-
-Los scripts están subidos al repositorio:
-
-**CameraControler.cs**: controla la cámara que utilizará el jugador.
-
-**PlayerControler.cs**: control del jugador(bolita azul claro), se mueve el estilo WASD con las flechas del teclado y salta con ESPACIO. Sistema de puntación y texto para visualizarla.
-
-**Rotator.cs**: rota los objetivos que dan puntos(los cuadrados amarillos rotan en ángulos de 45º.)
-
 ---------------------------------------------------------------
 
-Resumen: el jugador(la bolita amarilla) tiene que ir recolectando los coleccionables(cuadraditos amarillos) hasta alcanzar la puntuacion de 10. Hay enemigos que lo persiguen en algunas zonas, así como obstaculo mortales que pueden hacerle perder la partida. Si el jugador es alcanzado por algun enemigo u obstaculo mortal, se pierde la partida y aparece un mensaje informativo en la pantalla indicando la causa de la derrota.Si el jugador se cae de las plataformas será teletransportado al inicio. Si el jugador logra esquivar los enemigos y trampas y obtener los 10 puntos, la partida acaba y el jugador recibe un mensaje informativo por pantalla.
-
-<details><summary>🔍 SPOILER:</summary>  
-
-**A continuación dejo una imagen de como quedaron los tableros:**
-
-![unity1](https://github.com/user-attachments/assets/77cc99bd-b18a-40eb-b29a-56cf575e5a17)
-
+**Resumen:**  
+- El jugador(la bolita amarilla) tiene que ir recolectando los coleccionables(cuadraditos amarillos) hasta alcanzar la puntuacion de 10. 
+- Hay enemigos que lo persiguen en algunas zonas, así como obstaculo mortales que pueden hacerle perder la partida.  
+- Si el jugador es alcanzado por algun enemigo u obstaculo mortal, se pierde la partida y aparece un mensaje informativo en la pantalla indicando la causa de la derrota.  
+- Si el jugador se cae de las plataformas será teletransportado al inicio.  
+- Si el jugador logra esquivar los enemigos y trampas y obtener los 10 puntos, la partida acaba y el jugador recibe un mensaje informativo por pantalla.
 
 
-Comienzas en un rectángulo inicial en el que tienes 3 cubitos que rotan sobre si mismos, nos sirven de puntuación.
-
-El jugador (bolita azul claro) puede moverse y en contacto con los cubitos desaparecen y añaden 1 a la puntuación total.
-
-Imagen de la vista del jugador:
-![unity2](https://github.com/user-attachments/assets/e5dac2fd-22bb-47c6-ac97-63fc71a1767e)
-
-</details>
-
----- **Aqui meter métodos con explicación**
 <br><br>
 
 [Volver al inicio](#índice) 
