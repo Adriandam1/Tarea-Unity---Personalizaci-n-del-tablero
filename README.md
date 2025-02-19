@@ -522,15 +522,9 @@ En nuestro juego tambien tenemos elementos como aceleradores y boosters con los 
 -----------------------------------------
 
 ## 7) Estados
-                AnimatorStateInfo stateinfo = animator.GetCurrentAnimatorStateInfo(0);
-                Debug.Log("Estado actual: "+ stateInfo.fullPathHash);
 
 
-[Volver al inicio](#índice) 
-
-
-
-**ESTADOS WIFI**
+**ESTADOS en funcionamiento**
 
 <details><summary>🔍 SPOILER:</summary>  
   
@@ -538,19 +532,40 @@ https://github.com/user-attachments/assets/377abb6f-8649-4e3f-afb8-7e62f1e9b1be
 
 </details>
 
-Diferentes formas de manejar nuestros estados, demostradas en el video anterior:  
-**OnTrigger** crearemos un parametros Trigger, y añadiremos una transición al estado objetivo con la condicion del trigger
-<br><br>
-![ontrigger](https://github.com/user-attachments/assets/bf4a02f4-0d57-448f-bfe2-6aec59a80642)
+Existen diferentes formas de manejar nuestros estados, demostradas en el video anterior, lo primero que necesitamos es crear nuestro animator:  
+En la ventana del proyecto le damos a click derecho -> create -> Animator Controler  
+Una vez dentro de la ventana de animator lo primero que debemos definir son nuestros parametros:  
+![animator](https://github.com/user-attachments/assets/42f856be-4e80-461f-babd-812beb018c51)
 
-En nuestro codigo elegimor la funcion que queremos que nos haga de trigger y añadimos la linea:
+Como vemos hay de varios tipos, pondremos de ejemplo los parametros Trigger, Bool e Int:
+<br><br>
+**OnTrigger** esto nos permite cambiar a un estado durante un pulso, para ello crearemos un parametros Trigger, y añadiremos una transición al estado objetivo con la condicion del trigger  
+En nuestro codigo elegimos la funcion que queremos que nos haga de trigger y añadimos la linea:
 ```bash
 animator.SetTrigger("OnFireT");
 ```
 <br><br>
-**Booleano** crearemos un parametro Boolean
+**Booleano** crearemos un parametro Boolean, esto nos permitirá hacer una transición de estado cuando nuestro parametro booleano este true o false, segun lo indiquemos  
+En nuestro codigo solo necesitamos:
+```bash
+animator.SetBool("ganaste", true); // cambiamos el parametro booleano a true, esto hace que se cambie al estado Victoria
+```
+<br><br>
+**Integer** crearemos un parametro Int, esto nos permitirña hacer una transición de estado cuando nuestro parametro Integer cumpla la condición que le indiquemos, vease que sea mayor que, igual, menor-igual que...  
+En nuestro codigo solo necesitamos:
+```bash
+animator.SetInteger("puntos", count); //Iguala el parametro de estados 'puntos' al 'count'(que es nuestra variable de puntuación). Cambia al estado Puntuacion <puntos>
+```
+<br><br>
 
-**Integer** crearemos un parametro Int
+Con esto ya podemos crear nuestros estados con la interfaz gráfica del animator de unity, solamente tenemos que crear los estados con click derecho, y luego también con click derecho en un estado creamos la transición a otro empleando los parametros que creamos previamente.  
+Imagen ejemplo estados de partida:  
+![transiciones](https://github.com/user-attachments/assets/18b69f71-ffe5-4032-98e2-b710204f1a59)  
+En la imagen superior comprobamos que podemos añadir condiciones a las transiciones creadas.
+
+<br><br>
+
+[Volver al inicio](#índice) 
 
 
 ## 8) Acelerometro (móvil)
@@ -586,8 +601,8 @@ Lógicamente nuestros scripts de movimiento previos no funcionan para la versió
 Lo añadimos en nuestra función *update()* o *FixedUpdate()*
 ```bash
         Vector3 dir = Vector3.zero;
-        dir.x = -Input.acceleration.y;
-        dir.z = Input.acceleration.x;
+        dir.x = -Input.acceleration.x;
+        dir.z = Input.acceleration.y;
         if (dir.sqrMagnitude > 1)
             dir.Normalize();
         
