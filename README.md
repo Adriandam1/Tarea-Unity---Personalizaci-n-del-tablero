@@ -603,7 +603,7 @@ Lógicamente nuestros scripts de movimiento previos no funcionan para la versió
 Lo añadimos en nuestra función *update()* o *FixedUpdate()*
 ```bash
         Vector3 dir = Vector3.zero;
-        dir.x = -Input.acceleration.x;
+        dir.x = Input.acceleration.x;
         dir.z = Input.acceleration.y;
         if (dir.sqrMagnitude > 1)
             dir.Normalize();
