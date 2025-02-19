@@ -55,10 +55,10 @@ Pon el repositorio en la respuesta, con el Readme.
   </details>
   <br><br>
 * El método ***FixedUpdate*** en Unity se utiliza para actualizar la física del juego en intervalos fijos, lo que lo hace ideal para aplicar fuerzas o movimientos a objetos con un componente Rigidbody. En nuestro caso, el FixedUpdate() se engarca de la detección y manejo del salto y el calculo y la aplicación del movimiento:
-  - Qué hace?: Verifica si el jugador ha presionado la tecla espacio. Si es así, llama al método *OnFire()*.
-  - Se crea un vector de movimiento basado en las variables movementX y movementY, que almacenan la entrada del jugador.
+  - Qué hace?: **Verifica si el jugador ha presionado la tecla espacio**. Si es así, llama al método *OnFire()*.
+  - Se **crea un vector de movimiento** basado en las variables movementX y movementY, que almacenan la entrada del jugador.
       Se multiplica por la variable speed para ajustar la magnitud de la fuerza aplicada. Nótese que se asigna el componente movementX al eje X y movementY al eje Z (el eje Y se deja en 0) porque en muchos juegos en 3D el movimiento horizontal se realiza en el plano XZ, reservándose el eje Y para movimientos verticales como saltos.
-  - Aplicación de la fuerza: Con rb.AddForce(movement); se aplica la fuerza calculada al Rigidbody del objeto, lo que causa el movimiento de la bolita según la física del juego.
+  - **Aplicación de la fuerza**: Con rb.AddForce(movement); se aplica la fuerza calculada al Rigidbody del objeto, lo que causa el movimiento de la bolita según la física del juego.
 
   <details><summary>🔍 SPOILER:</summary>  
   
