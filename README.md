@@ -568,7 +568,8 @@ En la imagen superior comprobamos que podemos añadir condiciones a las transici
 [Volver al inicio](#índice) 
 
 
-## 8) Acelerometro (móvil)
+## 8) Acelerometro (móvil)  
+DISCLAIMER!!! La app esta diseñada para pc, se hicieron retoques para tener funcionalidad en movil  
 El acelerometro del teléfono nos permite dar ordenes de movimiento a nuestro player, en el siguiente spoiler detallo los pasos para preparar nuestro juego para pasarlo a un dispositivo móvil.
 
 <details><summary>🔍 SPOILER Paso a paso creacion APK:</summary>  
